@@ -1,0 +1,15 @@
+<script type="text/ng-template" id="site.search">
+  <div ng-controller="ngEverything.site.SearchCtrl" class="search-form">
+    <form name="searchForm" submit="search()">
+      <input type="text" ng-model="model.query" placeholder="Search for something..." />
+      <button type="submit" ng-disabled="!model.query"></button>
+    </form>
+    
+    <div class="search-results" ng-loading="results">
+      <div name="ng-loading-success">
+        <div class="user-results" ng-include="'lib.users'"></div>
+        <div class="gist-results" ng-include="'lib.gists'"></div>
+      </div>
+    </div>
+  </div>
+</script>

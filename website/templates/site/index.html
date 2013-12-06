@@ -1,0 +1,55 @@
+{% extends 'base.template' %}
+
+{% block scripts %}
+  <script src="{{ static_url }}/js/lib/oauth.js"></script>
+  
+  <script src="{{ static_url }}/js/application/auth/index.js"></script>
+  <script src="{{ static_url }}/js/application/auth/directives.js"></script>
+  <script src="{{ static_url }}/js/application/auth/services.js"></script>
+  
+  <script src="{{ static_url }}/js/application/lib/index.js"></script>
+  <script src="{{ static_url }}/js/application/lib/controllers.js"></script>
+  <script src="{{ static_url }}/js/application/lib/directives.js"></script>
+  <script src="{{ static_url }}/js/application/lib/services.js"></script>
+  
+  <script src="{{ static_url }}/js/application/site/index.js"></script>
+  <script src="{{ static_url }}/js/application/site/controllers.js"></script>
+  <script src="{{ static_url }}/js/application/site/directives.js"></script>
+{% endblock %}
+
+{% block templates %}
+  {% include 'site/about.template' %}
+  {% include 'site/header.template' %}
+  {% include 'site/gist.template' %}
+  {% include 'site/recent.template' %}
+  {% include 'site/search.template' %}
+  {% include 'site/users.template' %}
+  
+  {% include 'lib/iframe.template' %}
+  {% include 'lib/gists.template' %}
+  {% include 'lib/loading.template' %}
+  {% include 'lib/users.template' %}
+{% endblock %}
+
+{% block ng_app %}"ngEverything.site"{% endblock %}
+
+{% block body %}
+  <body ng-everything ng-title="ng-everything">
+    <div ng-include="'site.header'"></div>
+    
+    <div ng-navigation-path="'/'">
+      <div ng-include="'site.search'"></div>
+      <div ng-include="'site.recent'"></div>
+    </div>
+    
+    <div ng-navigation-prefix="urls.about">
+      <div ng-include="'site.about'"></div>
+    </div>
+    
+    <div ng-navigation-prefix="urls.users">
+      <div ng-include="'site.users'"></div>
+    </div>
+    
+    <div ng-include="'site.footer'"></div>
+  </body>
+{% endblock %}

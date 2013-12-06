@@ -1,0 +1,19 @@
+# Pip.
+pip==1.4
+distribute==0.7.3
+
+# Django.
+git+git://github.com/django/django.git@1.6b5
+
+# Core Django functionality.
+psycopg2==2.5.1
+South==0.8.1
+requests==1.2.3
+wsgiref==0.1.2
+pytz==2013b
+
+# Testing.
+ipdb==0.7
+ipython==0.13.2
+django-extensions==1.2.0
+Werkzeug==0.9.3

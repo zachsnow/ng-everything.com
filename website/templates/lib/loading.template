@@ -1,0 +1,17 @@
+<script type="text/ng-template" id="lib.loading">
+  <div ng-if="ngLoadingStatus === 'loading'">
+    <div ng-multi-transclude="ng-loading-loading">
+      <img src="/static/images/spinner.gif" />
+    </div>
+  </div>
+  
+  <div ng-if="ngLoadingStatus === 'success'">
+    <div ng-multi-transclude="ng-loading-success"></div>
+  </div>
+  
+  <div ng-if="ngLoadingStatus === 'error'">
+    <div ng-multi-transclude="ng-loading-error">
+      <h1>Failed.</h1>
+    </div>
+  </div>
+</script>

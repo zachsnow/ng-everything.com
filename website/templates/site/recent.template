@@ -1,0 +1,5 @@
+<script type="text/ng-template" id="site.recent">
+  <div ng-controller="ngEverything.site.RecentCtrl">
+    
+  </div>
+</script>

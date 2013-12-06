@@ -1,0 +1,15 @@
+<script type="text/ng-template" id="lib.user">
+  <div ng-controller="ngEverything.lib.UserCtrl">
+    <a ng-href="/users/[[ user.login ]]/">
+      <img ng-src="[[ user.avatar_url ]]" />
+      <h1>[[ user.name ]]</h1>
+      <h2>[[ user.username ]]</h2>
+    </a>
+  </div>
+</script>
+
+<script type="text/ng-template" id="lib.users">
+  <ul class="users">
+    <li ng-repeat="user in users" ng-include="'lib.user'"></li>
+  </ul>
+</script>

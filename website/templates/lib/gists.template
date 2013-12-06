@@ -1,0 +1,14 @@
+<script type="text/ng-template" id="lib.gist">
+  <div ng-controller="ngEverything.lib.GistCtrl as ctrl">
+    <a ng-href="/users/[[ gist.username ]]/[[ gist.id ]]/">
+      <h1>[[ gist.name ]]</h1>
+      <img ng-src="[[ gist.image ]]" />
+    </a>
+  </div>
+</script>
+
+<script type="text/ng-template" id="lib.gists">
+  <ul class="gists">
+    <li ng-repeat="gist in gists" ng-include="lib.gist"></li>
+  </ul>
+</script>

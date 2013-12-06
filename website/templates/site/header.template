@@ -1,0 +1,13 @@
+<script type="text/ng-template" id="site.header">
+  <header class="header">
+    <h1>ng-everything</h1>
+  </header>
+</script>
+
+<script type="text/ng-template" id="site.footer">
+  <footer class="footer">
+    Made by <a ng-href="">Bryan</a> and <a ng-href="/users/zachsnow/">Zach</a>
+    &middot;
+    <a ng-href="[[ urls.about ]]">About ng-everything.com</a>
+  </footer>
+</script>

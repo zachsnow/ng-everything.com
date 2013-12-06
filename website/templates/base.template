@@ -1,0 +1,22 @@
+<html ng-app={% block ng_app %}""{% endblock %}>
+  <head>
+    <title ng-auto-title></title>
+    {% if configuration == 'production' %}
+      <script src="ngEverything.min.js"></script>
+    {% else %}
+      <script src="{{ static_url }}/js/lib/underscore.js"></script>
+      <script src="{{ static_url }}/js/lib/jquery.js"></script>
+      <script src="{{ static_url }}/js/lib/angular.js"></script>
+      <script src="{{ static_url }}/js/lib/angular-animate.js"></script>
+      
+      {% block scripts %}
+      {% endblock %}
+    {% endif %}
+    
+    {% block templates %}
+    {% endblock %}
+  </head>
+  
+  {% block body %}
+  {% endblock %}
+</html>
