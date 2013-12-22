@@ -1,4 +1,5 @@
 {
   "configuration": "local",
-  "static_url": "/static"
+  "static_url": "/static",
+  "oauth_key": "svMkNf_uFSoVp_4l4DVqrOsgMBE"
 }

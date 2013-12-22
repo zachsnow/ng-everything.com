@@ -1,9 +1,21 @@
 <html ng-app={% block ng_app %}""{% endblock %}>
   <head>
     <title ng-auto-title></title>
+    
+    <script type="text/javascript">
+      window.ngEverything = {
+        configuration: '{{ configuration }}'
+      };
+    </script>
+    
+    {% block script_configuration %}
+    {% endblock %}
+    
     {% if configuration == 'production' %}
-      <script src="ngEverything.min.js"></script>
+      {% block minified_scripts %}
+      {% endblock %}
     {% else %}
+      {# Library scripts. #}
       <script src="{{ static_url }}/js/lib/underscore.js"></script>
       <script src="{{ static_url }}/js/lib/jquery.js"></script>
       <script src="{{ static_url }}/js/lib/angular.js"></script>
@@ -13,12 +25,9 @@
       {% endblock %}
     {% endif %}
     
-    {% if configuration == 'production' %}
-      <link type="text/css" rel="stylesheet" href="ngEverything.css" />
-    {% else %}
-      {% block styles %}
-      {% endblock %}
-    {% endif %}
+    {% block styles %}
+      <link type="text/css" rel="stylesheet" href="{{ static_url }}/css/ngEverything.css" />
+    {% endblock %} 
     
     {% block templates %}
     {% endblock %}

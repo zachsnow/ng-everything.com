@@ -5,7 +5,7 @@
   
   services.factory('auth', [
     function(){
-      OAuth.initialize('svMkNf_uFSoVp_4l4DVqrOsgMBE');
+      OAuth.initialize(window.ngEverythingConfig.oauthKey);
       return OAuth;
     }
   ]);

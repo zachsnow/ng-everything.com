@@ -1,5 +1,15 @@
 {% extends 'base.template' %}
 
+{% block script_configuration %}
+  <script type="text/javascript">
+    window.ngEverything.oauthKey = '{{ oauth_key }}';
+  </script>
+{% endblock %}
+      
+{% block minified_scripts %}
+  <script src="{{ static_url }}/js/ngEverything.min.js"></script>
+{% endblock %}
+
 {% block scripts %}
   <script src="{{ static_url }}/js/lib/oauth.js"></script>
   
