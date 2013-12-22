@@ -1,5 +1,10 @@
 syntax:glob
 *~
 *.pyc
+
+.pydevproject
+.project
+
+.sass-cache/
 deploy/
 node_modules/
