@@ -2,30 +2,6 @@ module.exports = function(grunt) {
   
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: {
-      deploy: {
-        src: ['deploy/**/*']
-      }
-    },
-    concat: {
-      options: {
-        separator: ';'
-      },
-      dist: {
-        src: [
-          'website/static/js/application/**/*.js',
-          'website/static/js/lib/**/*.min.js'
-        ],
-        dest: 'deploy/ngEverything.js'
-      }
-    },
-    uglify: {
-      dist: {
-        files: {
-          'deploy/ngEverything.min.js': ['<%= concat.dist.dest %>']
-        }
-      }
-    },
     jshint: {
       files: ['Gruntfile.js', 'website/static/js/application/**/*.js'],
       options: {
@@ -38,6 +14,38 @@ module.exports = function(grunt) {
         }
       }
     },
+    clean: {
+      deploy: {
+        src: ['deploy/**/*']
+      }
+    },
+    
+    // Concatenate site Javascript; put result in an intermediate directory
+    // to ease deploys.
+    concat: {
+      options: {
+        separator: ';'
+      },
+      production: {
+        src: [
+          'website/static/js/application/**/*.js',
+          'website/static/js/lib/**/*.min.js'
+        ],
+        dest: 'build/ngEverything.js'
+      }
+    },
+    
+    // Uglify site Javascript in the temporary location and finally
+    // deploy.
+    uglify: {
+      production: {
+        files: {
+          'deploy/ngEverything.min.js': ['<%= concat.production.dest %>']
+        }
+      }
+    },
+    
+    // Compile SASS; only compress in production.
     sass: {
       local: {
         files: {
@@ -51,6 +59,8 @@ module.exports = function(grunt) {
         style: 'compressed'
       }
     },
+    
+    // Copy all static assets for easy local testing.
     copy: {
       local: {
         expand: true,
@@ -63,7 +73,7 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['website/**/*'],
+      files: ['Gruntfile.js', 'website/**/*'],
       tasks: ['local']
     },
     exec: {
@@ -85,10 +95,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-exec');
 
-  var localTasks = ['jshint', 'clean', 'copy', 'exec:jinjaLocal'];
+  var localTasks = ['jshint', 'clean', 'sass:local', 'copy:local', 'exec:jinjaLocal'];
   grunt.registerTask('default', localTasks);
   grunt.registerTask('local', localTasks);
   
-  grunt.registerTask('production', ['jshint', 'clean', 'concat', 'uglify', 'jinjaProduction']);
+  grunt.registerTask('production', ['jshint', 'clean', 'sass:production', 'concat:production', 'uglify:production', 'exec:jinjaProduction']);
 
 };

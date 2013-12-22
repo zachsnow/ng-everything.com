@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+"""
+    A simple module to compile the Jinja2 templates
+    that comprise the ng-everything.com site's HTML.
+"""
 import sys
 from optparse import OptionParser
 
@@ -14,25 +18,39 @@ SITE_TEMPLATE = 'site/index.html'
 import json
 
 def build(opts, args):
-    try:
-        data = json.loads(open(args[0]).read())
-    except ValueError:
-        print "Bad input data"
-        sys.exit(1)
+    data = {}
+    
+    # Read the specified data file as JSON.
+    if len(args):
+        try:
+            data = json.loads(open(args[0]).read())
+        except ValueError as e:
+            sys.stderr.write("Bad input data: %s\n" % e)
+            sys.exit(1)
 
+    # Default to the main site template if no input
+    # templates are specified.
+    input_paths = [SITE_TEMPLATE]
+    if len(args) > 1:
+        input_path = args[1:]
+    
+    # Load up all requested templates.
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
     try:
-        tmpl = env.get_template(SITE_TEMPLATE)
-    except TemplateNotFound:
-        print "No site template."
+        templates = [env.get_template(path) for path in input_paths]
+    except TemplateNotFound as e:
+        sys.stderr.write("Template not found: %s\n" % e)
         sys.exit(1)
-
-    # Note: We want to let rendering exceptions bubble up.
-    sys.stdout.write(tmpl.render(data))
+    
+    # Render all reqeusted templates on stdout; this isn't
+    # super useful for more than 1 template...
+    for template in templates:
+        sys.stdout.write(template.render(data))
+    
     sys.exit(0)
 
 
 if __name__ == '__main__':
-    parser = OptionParser(usage="usage: %prog [options] <input template> <input data>")
+    parser = OptionParser(usage="usage: %prog [options] [input data] [input file ...]")
     opts, args = parser.parse_args()
     build(opts, args)
