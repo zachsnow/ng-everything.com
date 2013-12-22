@@ -16,7 +16,10 @@ module.exports = function(grunt) {
     },
     clean: {
       deploy: {
-        src: ['deploy/**/*']
+        src: [
+          'build/**/*',
+          'deploy/**/*'
+        ]
       }
     },
     
@@ -40,7 +43,7 @@ module.exports = function(grunt) {
     uglify: {
       production: {
         files: {
-          'deploy/ngEverything.min.js': ['<%= concat.production.dest %>']
+          'deploy/js/ngEverything.min.js': ['<%= concat.production.dest %>']
         }
       }
     },
@@ -49,18 +52,19 @@ module.exports = function(grunt) {
     sass: {
       local: {
         files: {
-          'deploy/ngEverything.css': 'static/scss/style.scss'
+          'deploy/css/ngEverything.css': 'website/static/scss/style.scss'
         }
       },
       production: {
         files: {
-          'deploy/ngEverything.css': 'static/scss/style.scss'
+          'deploy/css/ngEverything.css': 'website/static/scss/style.scss'
         },
         style: 'compressed'
       }
     },
     
-    // Copy all static assets for easy local testing.
+    // Copy all static assets for easy local testing; SASS is handled
+    // above so skip that.
     copy: {
       local: {
         expand: true,

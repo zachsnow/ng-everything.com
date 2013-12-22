@@ -6,5 +6,6 @@ syntax:glob
 .project
 
 .sass-cache/
+build/
 deploy/
 node_modules/
