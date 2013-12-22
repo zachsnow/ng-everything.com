@@ -17,6 +17,10 @@
   <script src="{{ static_url }}/js/application/site/directives.js"></script>
 {% endblock %}
 
+{% block styles %}
+  <link type="text/css" rel="stylesheet" href="{{ static_url }}/css/style.css" />
+{% endblock %}
+
 {% block templates %}
   {% include 'site/about.template' %}
   {% include 'site/header.template' %}

@@ -38,11 +38,27 @@ module.exports = function(grunt) {
         }
       }
     },
+    sass: {
+      local: {
+        files: {
+          'deploy/ngEverything.css': 'static/scss/style.scss'
+        }
+      },
+      production: {
+        files: {
+          'deploy/ngEverything.css': 'static/scss/style.scss'
+        },
+        style: 'compressed'
+      }
+    },
     copy: {
-      static: {
+      local: {
         expand: true,
         cwd: 'website/',
-        src: ['static/**/*'],
+        src: [
+          'static/js/**/*',
+          'static/images/**/*'
+        ],
         dest: 'deploy/'
       }
     },
@@ -64,8 +80,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-exec');
 
   var localTasks = ['jshint', 'clean', 'copy', 'exec:jinjaLocal'];
