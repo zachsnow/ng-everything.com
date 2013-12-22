@@ -22,20 +22,24 @@
 {% endblock %}
 
 {% block templates %}
-  {% include 'site/about.template' %}
-  {% include 'site/header.template' %}
-  {% include 'site/gist.template' %}
-  {% include 'site/recent.template' %}
-  {% include 'site/search.template' %}
-  {% include 'site/users.template' %}
+  {% include 'auth/status.template' %}
   
   {% include 'lib/iframe.template' %}
   {% include 'lib/gists.template' %}
   {% include 'lib/loading.template' %}
   {% include 'lib/users.template' %}
+  
+  {% include 'site/about.template' %}
+  {% include 'site/header.template' %}
+  {% include 'site/gist.template' %}
+  {% include 'site/recent.template' %}
+  {% include 'site/users.template' %}
+  {% include 'site/search.template' %}
 {% endblock %}
 
-{% block ng_app %}"ngEverything.site"{% endblock %}
+{% block ng_app %}
+  "ngEverything.site"
+{% endblock %}
 
 {% block body %}
   <body ng-everything ng-title="ng-everything">

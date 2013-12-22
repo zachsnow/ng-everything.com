@@ -1,0 +1,11 @@
+<script type="text/ng-template" id="auth.status">
+  <div class="auth-status">
+    <div class="auth-logged-in" ng-if="auth.user.isAuthenticated">
+      <a class="auth-current-user" ng-href="[[ auth.user.url ]]">[[ auth.user.name ]] ([[ auth.user.login ]])</a>
+      <a class="auth-login" ng-click="auth.logout()">Logout</a>
+    </div>
+    <div class="auth-logged-out" ng-if="!auth.user.isAuthenticated">
+      <a class="auth-logout" ng-auth-popup>Login</a>
+    </div>
+  </div>
+</script>

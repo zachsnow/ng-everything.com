@@ -1,7 +1,14 @@
 <script type="text/ng-template" id="site.header">
   <header class="header">
     <h1>ng-everything</h1>
+    <aside>
+      <a href="http://angularjs.org" href="_new">AngularJS</a>
+      directives, services, and everything else.
+    </aside>
+    
+    <div ng-include="'auth.status'"></div>
   </header>
+  
 </script>
 
 <script type="text/ng-template" id="site.footer">
