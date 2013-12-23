@@ -1,14 +1,18 @@
 <script type="text/ng-template" id="site.users">
-  <div ng-navigation-path="urls.users" ng-controller="ngEverything.site.UsersCtrl">
-    <h1>Users</h1>
-    <div ng-include="'shared.users'"></div>
+  <div ng-navigation-path="urls.users">
+    <div ng-controller="ngEverything.site.UsersCtrl">
+      <h1>Users</h1>
+      <div ng-include="'lib.users'"></div>
+    </div>
   </div>
   
-  <div ng-navigation-prefix="urls.user" ng-controller="ngEverything.site.UserCtrl">
-    <div ng-loading="[user, gists]">
-      <div name="ng-loading-success">
-        <div ng-include="'lib.user'"></div>
-        <div ng-include="'lib.gists'"></div>
+  <div ng-navigation-prefix="urls.user">
+    <div ng-controller="ngEverything.site.UserCtrl">
+      <div ng-loading="[user, gists]">
+        <div name="ng-loading-success">
+          <div ng-include="'lib.user'"></div>
+          <div ng-include="'lib.gists'"></div>
+        </div>
       </div>
     </div>
   </div>

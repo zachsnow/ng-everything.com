@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     sass: {
       local: {
         files: {
-          'deploy/css/ngEverything.css': 'website/static/scss/style.scss'
+          'deploy/static/css/ngEverything.css': 'website/static/scss/style.scss'
         }
       },
       production: {

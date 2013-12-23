@@ -56,11 +56,26 @@
   controllers.controller('ngEverything.site.UserCtrl', [
     '$scope',
     'github',
-    'navigation',
-    function($scope, github, navigation){
+    function($scope, github){
       $scope.user = github.user($scope.username);
-      $scope.gists = github.user.gists(username);
+      $scope.gists = github.user.gists($scope.username);
     }
   ]);
   
+  controllers.controller('ngEverything.site.GistCtrl', [
+    '$scope',
+    'github',
+    function($scope, github){
+      debugger;
+      $scope.gist = github.gist($scope.gistId);
+    }
+  ]);
+  
+  controllers.controller('ngEverything.site.CommentsCtrl', [
+    '$scope',
+    'github',
+    function($scope){
+      $scope.comments = github.comments($scope.gist);
+    }
+  ]);  
 })();

@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block styles %}
-  <link type="text/css" rel="stylesheet" href="{{ static_url }}/css/style.css" />
+  <link type="text/css" rel="stylesheet" href="{{ static_url }}/css/ngEverything.css" />
 {% endblock %}
 
 {% block templates %}
@@ -41,7 +41,7 @@
   
   {% include 'site/about.template' %}
   {% include 'site/header.template' %}
-  {% include 'site/gist.template' %}
+  {% include 'site/gists.template' %}
   {% include 'site/recent.template' %}
   {% include 'site/users.template' %}
   {% include 'site/search.template' %}
@@ -66,6 +66,10 @@
     
     <div ng-navigation-prefix="urls.users">
       <div ng-include="'site.users'"></div>
+    </div>
+    
+    <div ng-navigation-prefix="urls.gists">
+      <div ng-include="'site.gists'"></div>
     </div>
     
     <div ng-include="'site.footer'"></div>

@@ -4,7 +4,8 @@
     
     <script type="text/javascript">
       window.ngEverything = {
-        configuration: '{{ configuration }}'
+        configuration: '{{ configuration }}',
+        staticUrl: '{{ static_url }}'
       };
     </script>
     
@@ -26,7 +27,6 @@
     {% endif %}
     
     {% block styles %}
-      <link type="text/css" rel="stylesheet" href="{{ static_url }}/css/ngEverything.css" />
     {% endblock %} 
     
     {% block templates %}

@@ -1,0 +1,20 @@
+<script type="text/ng-template" id="site.gists">
+  <div ng-navigation-path="urls.gist">
+    <div ng-controller="ngEverything.site.GistCtrl">
+      <div ng-loading="gist">
+        <div name="ng-loading-success">
+          <h1>[[ gist|gistName ]]</h1>
+          <div ng-include="lib.comments"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="site.comments">
+  <div ng-controller="ngEverything.site.CommentsCtrl">
+    <ul class="comments">
+      <li ng-repeat="comment in comments"></li>
+    </ul>
+  </div>
+</script>

@@ -54,18 +54,31 @@
   services.factory('models', [
     function(){
       var service = {
-        wrap: function(promise){
-          return promise.then(service.create, function(reason){
+        wrap: function(promise, isArray){
+          var object = isArray ? [] : {};
+          
+          object.$promise = promise.then(service.create(object), function(reason){
             console.error('models.wrap', reason);
+            delete object.$promise;
           });
+          return object;
         },
-        create: function(result){
-          if(_.isArray(result)){
-            return _.map(result, service.create);
-          }
-          else {
-            return result;
-          }
+        create: function(object){
+          return function(result){
+            delete object.$promise;
+             
+            if(_.isArray(result.data)){
+              object.length = 0;
+              _.forEach(result.data, function(v, i){
+                object[i] = v;
+              });
+              return object;
+            }
+            else {
+              _.extend(object, result.data);
+              return object;
+            }
+          };
         }
       };
       
@@ -75,75 +88,75 @@
   
   services.factory('github', [
     '$q',
-    'auth',
     'models',
+    'oauth',
     'urls',
-    function($q, auth, models, urls){
+    function($q, models, oauth, urls){
       var api = {
         user: {
           index: '/users/:username',
           gists: '/users/:username/gists'
         },
         gist: {
-          index: '/gists/:id',
-          comments: '/gists/:id/comments',
-          stars: '/gists/:id/star'
+          index: '/gists/:gistId',
+          comments: '/gists/:gistId/comments',
+          stars: '/gists/:gistId/star'
         }
       };
       
       var user = function(username){
         var url = urls.populate(api.user.index, {
-          usernmame: username
+          username: username
         });
-        return models.wrap(auth.get(url));
+        return models.wrap(oauth.get(url));
       };
       
       user.gists = function(username){
         var url = urls.populate(api.user.gists, {
           username: username
         });
-        return models.wrap(auth.get(url));
+        return models.wrap(oauth.get(url), true);
       };
       
       var gist = function(id){
         var url = urls.populate(api.gist.index, {
-          id: id
+          gistId: id
         });
-        return models.wrap(auth.get(url));
+        return models.wrap(oauth.get(url));
       };
       
       gist.star = function(gist){
         var id = gist.id || gist;
         var url = urls.populate(api.gist.stars, {
-          id: id
+          gistId: id
         });
-        return models.wrap(auth.put(url));
+        return models.wrap(oauth.put(url));
       };
       gist.comments = function(gist){
         var id = gist.id || gist;
         var url = urls.populate(api.gist.comments, {
-          id: id
+          gistId: id
         });
-        return models.wrap(auth.post(url, {
+        return models.wrap(oauth.get(url, {
           contentType: 'application/vnd.github.VERSION.full+json'
-        }));
+        }), true);
       };
       gist.comment = function(gist, text){
         var id = gist.id || gist;
         var url = urls.populate(api.gist.comments, {
-          id: id
+          gistId: id
         });
         var data = {
           body: text
         };
-        return models.wrap(auth.post(url, {
+        return models.wrap(oauth.post(url, {
           data: data
         }));
       };
       
       var gists = {};
       gists.recent = function(){
-        return models.wrap($q.when([]));
+        return [];
       };
       
       return {
@@ -168,7 +181,7 @@
         users: '/users/',
         user: '/users/:username/',
         gists: '/gists/',
-        gist: '/gists/:id/',
+        gist: '/gists/:gistId/',
         about: '/about/'
       };
     }
@@ -181,9 +194,9 @@
     '$rootScope',
     '$injector',
     '$location',
-    'auth',
+    'oauth',
     'urls',
-    function($rootScope, $injector, $location, auth, urls){
+    function($rootScope, $injector, $location, oauth, urls){
       var getMatcher = function(path, matchAll){
         var bindingNames = [];
         path = path.replace(/\//g, '\\/'); 

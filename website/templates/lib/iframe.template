@@ -1,11 +1,9 @@
-<script type="text/ng-template" id="shared.iframe">
+<script type="text/ng-template" id="lib.iframe">
   <html>
     <head>
-      <script type="text/javascript" src="[[ script.url ]]" ng-repeat="script in gist.scripts">\x3C/script>
-      <link rel="stylesheet" type="text/css" href="[[ style.url ]]" ng-repeat="style in gist.styles" />
+      <script type="text/javascript" src="[[ script.url ]]" ng-repeat="script in scripts">\x3C/script>
+      <link rel="stylesheet" type="text/css" href="[[ style.url ]]" ng-repeat="style in styles" />
     </head>
-    <body ng-auto-title="[[ gist.name ]]" ng-bind-html="gist.template">
-      
-    </body>
+    <body ng-bind-html-unsafe="template"></body>
   </html>
 </script>

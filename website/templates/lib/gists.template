@@ -1,14 +1,15 @@
 <script type="text/ng-template" id="lib.gist">
-  <div ng-controller="ngEverything.lib.GistCtrl as ctrl">
-    <a ng-href="/users/[[ gist.username ]]/[[ gist.id ]]/">
-      <h1>[[ gist.name ]]</h1>
-      <img ng-src="[[ gist.image ]]" />
+  <div ng-controller="ngEverything.lib.GistCtrl">
+    <a ng-href="/gists/[[ gist.id ]]/">
+      <h1>[[ gist|gistName ]]</h1>
+      <img ng-src="[[ gist|gistImage ]]" />
     </a>
   </div>
 </script>
 
 <script type="text/ng-template" id="lib.gists">
   <ul class="gists">
-    <li ng-repeat="gist in gists" ng-include="lib.gist"></li>
+    <li ng-repeat="gist in gists" ng-include="'lib.gist'"></li>
   </ul>
 </script>
+

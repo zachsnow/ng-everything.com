@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="site.header">
   <header class="header">
-    <h1>ng-everything</h1>
+    <h1><a ng-href="/">ng-everything</a></h1>
     <aside>
       <a href="http://angularjs.org" href="_new">AngularJS</a>
       directives, services, and everything else.

@@ -121,7 +121,7 @@
               nestedScope = scope.$new();
               _.extend(nestedScope, bindings);
               
-              transcludeFn(scope, function(clone){
+              transcludeFn(nestedScope, function(clone){
                 if(nestedElement){
                   // Don't animate when reattaching, let's see how that looks.
                   nestedElement.remove();
@@ -129,7 +129,7 @@
                 }
                 else {
                   element.append(clone);
-                  //$animate.enter(clone, element);
+                  // $animate.enter(clone, element);
                 }
                 nestedElement = clone;
               });
@@ -141,7 +141,7 @@
               }
               if(nestedElement){
                 element.html('');
-                //$animate.leave(nestedElement);
+                // $animate.leave(nestedElement);
               }
               nestedElement = null;
             };
@@ -192,4 +192,62 @@
   
   var ngNavigationPrefix = navigationDirective('ngNavigationPrefix', 'pathStartsWith');
   var ngNavigationPath = navigationDirective('ngNavigationPath', 'pathEquals');
+  
+  directives.filter('gistName', [
+    function(){
+      return function(gist){
+        if(gist.description){
+          return gist.description;
+        }
+        
+        var filenames = _.keys(gist.files);
+        if(filenames.length === 1){
+          return filenames[0];
+        }
+        
+        return gist.id;
+      };
+    }
+  ]);
+  
+  directives.filter('gistImage', [
+    function(){
+      return function(gist){
+        return window.ngEverything.staticUrl + '/images/octocat.png';
+      };
+    }
+  ]);
+  
+  directives.filter('gistReadme', [
+    function(){
+      return function(gist){
+        var file = _.find(gist.files, function(file){
+          return true;
+        });
+        return file;
+      };
+    }
+  ]);
+  
+  directives.filter('gistFrame', [
+    '$compile',
+    '$scope',
+    '$templateCache',
+    function($compile, $scope, $templateCache){
+      return function(gist){
+        var scope = $scope.$new();
+        var template = $templateCache.get('lib.iframe');
+        
+        scope.template = _.find(gist.files, function(file){
+          file.name === 'index.template';
+        });
+        scope.scripts = _.filter(gist.files, function(file){
+          return file.type === 'application/javascript';
+        });
+        scope.styles = _.filter(gist.files, function(file){
+          return file.type === 'text/css';
+        });
+      };
+    }
+  ]);
 })();

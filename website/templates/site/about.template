@@ -1,3 +1,21 @@
 <script type="text/ng-template" id="site.about">
   <h1>We made a thing.</h1>
+  
+  <ul>
+    <li>
+      Create a <a>new gist</a>, or <a ng-href="[[ ]]">fork an existing one</a>.  
+    </li>
+    <li>
+      Build your example.
+      
+      <ul>
+        <li>
+          
+        </li>
+      </ul>
+    </li>
+    <li>
+      View it on ng-everything.
+    </li>
+  </ul>
 </script>

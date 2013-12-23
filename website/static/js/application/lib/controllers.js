@@ -7,4 +7,9 @@
     '$scope',
     function($scope){}
   ]);
+  
+  controllers.controller('ngEverything.lib.GistCtrl', [
+    '$scope',
+    function($scope){}
+  ]);
 })();
