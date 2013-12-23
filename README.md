@@ -33,7 +33,7 @@ a watcher to recompile your files as they change:
 Then start a server in the `deploy/` directory; for instance:
 
     $ cd deploy/
-    $ python -m SimpleHTTPServer
+    $ ../serve
 
 
 Deploying

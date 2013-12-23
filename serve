@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+"""
+    Serves the index at every URL, for push-state testing.
+"""
+import SimpleHTTPServer, BaseHTTPServer
+import SocketServer
+
+class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if not self.path.startswith('/static/'):
+            self.path = 'index.html'
+        SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+
+print 'Serving...'
+BaseHTTPServer.test(Handler, SocketServer.TCPServer)
